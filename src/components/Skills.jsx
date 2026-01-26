@@ -86,7 +86,7 @@ export default function Skills() {
     <section 
       ref={containerRef}
       id="skills" 
-      className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-orange-50 to-white"
+      className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-orange-50 to-white border-t-2 border-orange-300"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
