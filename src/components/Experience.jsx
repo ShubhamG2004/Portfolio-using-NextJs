@@ -109,14 +109,7 @@ const ExperienceCard = ({ experience, index }) => {
           transition={{ duration: 0.8, delay: index * 0.15 }}
           className="w-8 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500"
         />
-        <motion.div
-          whileHover={{ 
-            scale: 1.3, 
-            rotate: 360,
-            boxShadow: "0 0 15px rgba(249, 115, 22, 0.4)"
-          }}
-          className="w-3 h-3 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 border-2 border-white shadow-lg z-10"
-        />
+        <div className="w-3 h-3 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 border-2 border-white shadow-lg z-10" />
       </div>
 
       {/* Main card */}
@@ -124,173 +117,93 @@ const ExperienceCard = ({ experience, index }) => {
         className="lg:ml-12 relative"
         whileHover={{ 
           y: -8,
-          scale: 1.02,
         }}
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         transition={{ duration: 0.3 }}
       >
-        {/* Orange glow effect */}
-        <motion.div
-          className="absolute -inset-0.5 bg-gradient-to-r from-orange-400/20 to-orange-500/10 rounded-xl blur-md"
-          animate={{
-            opacity: isHovered ? 0.4 : 0,
-            scale: isHovered ? 1.02 : 1,
-          }}
-          transition={{ duration: 0.3 }}
-        />
-
-        {/* Card content - PURE WHITE BACKGROUND */}
+        {/* Card content */}
         <div className="relative bg-white rounded-xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <motion.div
-                  className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg"
-                  whileHover={{ 
-                    rotate: 15,
-                    scale: 1.1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
                   <Briefcase className="w-5 h-5 text-white" />
-                </motion.div>
+                </div>
                 <div>
-                  <motion.h3
-                    className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300"
-                    animate={{
-                      color: isHovered ? "#EA580C" : "#111827",
-                    }}
-                  >
+                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">
                     {experience.role}
-                  </motion.h3>
-                  <motion.span
-                    className="inline-flex items-center px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-medium rounded-full border border-orange-200"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  </h3>
+                  <span className="inline-flex items-center px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-medium rounded-full border border-orange-200">
                     {experience.companyType}
-                  </motion.span>
+                  </span>
                 </div>
               </div>
             </div>
             
             <div className="flex items-center gap-3">
-              <motion.span
-                className="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-lg text-sm font-medium shadow-sm"
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -2,
-                }}
-              >
+              <span className="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-lg text-sm font-medium shadow-sm">
                 <Calendar className="inline w-3.5 h-3.5 mr-1.5" />
                 {experience.date}
-              </motion.span>
-              <motion.a
+              </span>
+              <a
                 href={experience.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-gray-50 text-gray-700 rounded-lg shadow-sm hover:bg-gray-100 transition-colors"
-                whileHover={{ 
-                  scale: 1.1,
-                  rotate: 5,
-                }}
-                whileTap={{ scale: 0.95 }}
+                className="p-2 bg-gray-50 text-gray-700 rounded-lg shadow-sm hover:bg-gray-100 transition-colors hover:scale-105"
               >
                 <ExternalLink className="w-4 h-4" />
-              </motion.a>
+              </a>
             </div>
           </div>
 
           {/* Company link */}
-          <motion.a
+          <a
             href={experience.link}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mb-4 text-sm font-medium text-orange-600 hover:text-orange-700 transition-colors duration-300"
-            whileHover={{ 
-              scale: 1.02, 
-              x: 4,
-            }}
           >
             {experience.company}
             <ChevronRight className="inline w-4 h-4 ml-1" />
-          </motion.a>
+          </a>
 
           {/* Skills */}
-          <motion.div
-            className="flex flex-wrap gap-2 mb-5"
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ delay: index * 0.1 + 0.3 }}
-          >
+          <div className="flex flex-wrap gap-2 mb-5">
             {experience.skills.slice(0, 4).map((skill, skillIndex) => (
-              <motion.span
+              <span
                 key={skillIndex}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 + 0.4 + (skillIndex * 0.05) }}
-                whileHover={{
-                  scale: 1.05,
-                  y: -2,
-                  backgroundColor: "rgba(249, 115, 22, 0.1)",
-                  borderColor: "rgba(249, 115, 22, 0.3)",
-                  color: "#EA580C"
-                }}
-                className="px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 text-xs rounded-lg font-medium transition-all duration-300"
+                className="px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 text-xs rounded-lg font-medium hover:bg-orange-50 hover:border-orange-200 hover:text-orange-600 transition-all duration-300"
               >
                 {skill}
-              </motion.span>
+              </span>
             ))}
-          </motion.div>
+          </div>
 
           {/* Points */}
           <div className="space-y-3">
             {experience.points.map((point, pointIndex) => (
-              <motion.div
+              <div
                 key={pointIndex}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ delay: index * 0.1 + 0.5 + (pointIndex * 0.1) }}
                 className="flex items-start group/item"
-                whileHover={{ x: 4 }}
-                // transition={{ duration: 0.2 }}
               >
-                <motion.div
-                  className="flex-shrink-0 mt-1 mr-3"
-                  whileHover={{ 
-                    rotate: 180,
-                    scale: 1.2,
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
+                <div className="flex-shrink-0 mt-1 mr-3">
                   <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
                     <TrendingUp className="w-2.5 h-2.5 text-white" />
                   </div>
-                </motion.div>
+                </div>
                 <span className="text-gray-600 text-sm leading-relaxed">
                   {point}
                 </span>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Bottom divider */}
-          <motion.div
-            className="pt-4 mt-4 border-t border-gray-100"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-          >
-            <motion.div
-              className="h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent"
-              animate={{
-                scaleX: isHovered ? 1 : 0.5,
-                opacity: isHovered ? 1 : 0.5,
-              }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
+          <div className="pt-4 mt-4 border-t border-gray-100">
+            <div className="h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent group-hover:scale-x-100 scale-x-50 transition-transform duration-300" />
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -311,48 +224,9 @@ export default function Experience() {
     <section 
       ref={sectionRef}
       id="experience" 
-      className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-orange-50 via-orange-50/80 to-white border-t-2 border-orange-300"
+      className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-orange-50 to-white border-t-2 border-orange-300"
     >
-      {/* Subtle orange pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #fb923c 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
-
-      {/* Floating orange accent circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-orange-200/40"
-            style={{
-              left: `${10 + (i * 15)}%`,
-              top: `${15 + (i % 3) * 25}%`,
-              width: `${Math.random() * 150 + 100}px`,
-              height: `${Math.random() * 150 + 100}px`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              x: [0, 10, 0],
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 20 + (i * 3),
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 1
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-orange-100/20 via-transparent to-transparent" />
-
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div 
           style={{ y: textY }} 
@@ -364,22 +238,10 @@ export default function Experience() {
             transition={{ duration: 0.8 }}
             className="relative inline-block mb-6"
           >
-            <motion.span
-              className="inline-flex items-center text-orange-600 font-semibold text-sm tracking-wider uppercase"
-              animate={{
-                textShadow: [
-                  "0 0 0px #fb923c",
-                  "0 0 10px rgba(251, 146, 60, 0.3)",
-                  "0 0 0px #fb923c"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <div className="px-4 py-2 bg-white rounded-full border border-orange-200 flex items-center shadow-sm">
-                <Briefcase className="inline w-4 h-4 mr-2 text-orange-600" />
-                Professional Experience
-              </div>
-            </motion.span>
+            <span className="inline-flex items-center text-orange-600 font-semibold text-sm tracking-wider uppercase">
+              <Briefcase className="inline w-4 h-4 mr-2" />
+              Professional Experience
+            </span>
           </motion.div>
           
           <motion.h2
@@ -416,26 +278,10 @@ export default function Experience() {
             From internships to impactful roles - showcasing growth and measurable results
           </motion.p>
           
-          {/* Animated divider */}
-          <motion.div
-            className="flex justify-center mt-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <motion.div
-              className="w-24 h-1 rounded-full bg-gradient-to-r from-orange-300 to-orange-400"
-              animate={{
-                scaleX: [0.8, 1.2, 0.8],
-                opacity: [0.6, 1, 0.6],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
+          {/* Simple divider */}
+          <div className="flex justify-center mt-8">
+            <div className="w-24 h-1 rounded-full bg-gradient-to-r from-orange-300 to-orange-400" />
+          </div>
         </motion.div>
 
         {/* Timeline and cards */}
@@ -460,7 +306,7 @@ export default function Experience() {
           </motion.div>
         </div>
 
-        {/* Stats section - Pure white background */}
+        {/* Stats section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
