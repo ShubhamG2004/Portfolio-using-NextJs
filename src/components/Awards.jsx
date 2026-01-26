@@ -173,7 +173,7 @@ export default function Awards() {
     <section 
       ref={containerRef}
       id="achievements" 
-      className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-orange-50/30 border-t-4 border-orange-300"
+      className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-orange-50 border-t-4 border-orange-300"
     >
       {/* Floating background elements */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
