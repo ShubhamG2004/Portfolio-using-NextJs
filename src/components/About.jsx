@@ -37,6 +37,18 @@ export default function EducationJourney() {
   const sectionRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -69,7 +81,7 @@ export default function EducationJourney() {
   };
 
   return (
-    <section ref={sectionRef} className="edu">
+    <section ref={sectionRef} className="edu" id="education">
       <div className="header">
         <h2 className="edu-heading">
           Education <span className="journey-text">Journey</span>
@@ -81,43 +93,60 @@ export default function EducationJourney() {
 
       <div className="timeline-container">
         <div className="timeline">
-          {/* Timeline line */}
-          <div className="line">
-            <div
-              className="progress"
-              style={{ height: `${progress * 100}%` }}
-            />
-          </div>
+          {/* Timeline line - hide on mobile */}
+          {!isMobile && (
+            <div className="line">
+              <div
+                className="progress"
+                style={{ height: `${progress * 100}%` }}
+              />
+            </div>
+          )}
 
           {education.map((item, index) => {
             const Icon = item.icon;
-            // Reduced spacing between timeline items
-            const top = `${15 + (index * 30)}%`;
-
+            
+            // Different positioning for mobile vs desktop
+            const desktopTop = `${15 + (index * 30)}%`;
+            
             return (
-              <div key={item.id}>
-                {/* Knot */}
-                <div
-                  className={`knot ${visible[item.id] ? "active" : ""}`}
-                  style={{ top }}
-                >
-                  <div className="knot-inner">
-                    <Icon size={14} color="#fff" />
+              <div key={item.id} className={`timeline-item ${isMobile ? 'mobile-item' : ''}`}>
+                {/* Knot - only show on desktop */}
+                {!isMobile && (
+                  <div
+                    className={`knot ${visible[item.id] ? "active" : ""}`}
+                    style={{ top: desktopTop }}
+                  >
+                    <div className="knot-inner">
+                      <Icon size={14} color="#fff" />
+                    </div>
+                    <span className="year-label">{item.year}</span>
                   </div>
-                  <span className="year-label">{item.year}</span>
-                </div>
+                )}
 
-                {/* Card */}
+                {/* Card - different styling for mobile */}
                 <div
-                  className={`card ${item.side} ${
+                  className={`card ${isMobile ? 'mobile' : item.side} ${
                     visible[item.id] ? "show" : ""
                   }`}
-                  style={{ top }}
+                  style={isMobile ? {} : { top: desktopTop }}
                 >
-                  <div className="card-header">
-                    <div className="icon-container">
-                      <Icon size={18} color="#fff" />
+                  {/* Year on mobile */}
+                  {isMobile && (
+                    <div className="mobile-year">
+                      <div className="year-icon">
+                        <Icon size={14} color="#fff" />
+                      </div>
+                      <span className="year-text">{item.year}</span>
                     </div>
+                  )}
+                  
+                  <div className="card-header">
+                    {!isMobile && (
+                      <div className="icon-container">
+                        <Icon size={18} color="#fff" />
+                      </div>
+                    )}
                     <h3>{item.title}</h3>
                   </div>
                   <p className="place">{item.place}</p>
@@ -216,6 +245,7 @@ export default function EducationJourney() {
           margin-top: -1rem;
         }
 
+        /* Desktop Timeline */
         .line {
           position: absolute;
           left: 50%;
@@ -286,7 +316,8 @@ export default function EducationJourney() {
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
-        .card {
+        /* Cards - Desktop */
+        .card:not(.mobile) {
           position: absolute;
           width: 360px;
           background: white;
@@ -301,7 +332,7 @@ export default function EducationJourney() {
           transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .card::before {
+        .card:not(.mobile)::before {
           content: '';
           position: absolute;
           top: 0;
@@ -323,6 +354,62 @@ export default function EducationJourney() {
         .card.show {
           opacity: 1;
           transform: translateY(0) scale(1);
+        }
+
+        /* Cards - Mobile */
+        .card.mobile {
+          position: relative;
+          width: 100%;
+          background: white;
+          padding: 1.5rem;
+          border-radius: 14px;
+          border: 1px solid rgba(255, 107, 53, 0.1);
+          box-shadow: 
+            0 4px 16px rgba(255, 107, 53, 0.08),
+            0 2px 6px rgba(0, 0, 0, 0.04);
+          margin-bottom: 2rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.mobile::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #ff6b35, #ff8c42);
+          border-radius: 14px 14px 0 0;
+        }
+
+        .mobile-year {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+          padding-bottom: 0.75rem;
+          border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .year-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #ff6b35, #ff8c42);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 
+            0 2px 6px rgba(255, 107, 53, 0.3),
+            0 0 0 3px #fff9f5;
+        }
+
+        .year-text {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #ff6b35;
         }
 
         .card-header {
@@ -379,46 +466,48 @@ export default function EducationJourney() {
           flex-shrink: 0;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-          .card {
-            width: 320px;
+        /* Responsive - Mobile */
+        @media (max-width: 900px) {
+          .timeline {
+            height: auto !important;
+            margin-top: 0;
+            position: static;
+          }
+
+          .timeline-item {
+            margin-bottom: 2rem;
+          }
+
+          .card.mobile {
+            margin-bottom: 2rem;
+          }
+
+          .card.mobile.show {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Responsive - Desktop */
+        @media (min-width: 901px) {
+          .card.mobile {
+            display: none;
           }
         }
 
         @media (max-width: 900px) {
-          .timeline {
-            height: 500px;
-            margin-top: 0;
+          .card:not(.mobile) {
+            display: none;
           }
-
-          .line {
-            left: 25px;
-            top: 40px;
-            height: calc(100% - 80px);
+          
+          .knot, .line, .year-label {
+            display: none;
           }
+        }
 
-          .knot {
-            left: 25px;
-          }
-
-          .card {
-            position: relative;
-            left: 60px !important;
-            right: auto !important;
-            width: calc(100% - 85px);
-            margin-bottom: 2.5rem;
-            transform: translateX(0) scale(0.95);
-          }
-
-          .card.show {
-            transform: translateX(0) scale(1);
-          }
-
-          .year-label {
-            top: 35px;
-            left: 60px;
-            transform: translateX(0);
+        @media (max-width: 1024px) {
+          .card:not(.mobile) {
+            width: 320px;
           }
         }
 
@@ -436,15 +525,8 @@ export default function EducationJourney() {
             padding: 0 0.5rem;
           }
 
-          .timeline {
-            height: 450px;
-          }
-
-          .card {
+          .card.mobile {
             padding: 1.25rem;
-            width: calc(100% - 70px);
-            left: 50px !important;
-            margin-bottom: 2rem;
           }
 
           .card h3 {
@@ -455,9 +537,9 @@ export default function EducationJourney() {
             gap: 0.5rem;
           }
 
-          .icon-container {
-            width: 32px;
-            height: 32px;
+          .year-icon {
+            width: 28px;
+            height: 28px;
           }
 
           .meta-item {
@@ -470,33 +552,17 @@ export default function EducationJourney() {
             padding: 2rem 1rem 2.5rem;
           }
 
-          .timeline {
-            height: 400px;
-          }
-
-          .line {
-            left: 20px;
-          }
-
-          .knot {
-            left: 20px;
-          }
-
-          .knot-inner {
-            width: 28px;
-            height: 28px;
-          }
-
-          .card {
-            left: 45px !important;
-            width: calc(100% - 60px);
+          .card.mobile {
             padding: 1rem;
           }
 
-          .year-label {
-            left: 50px;
-            padding: 3px 10px;
-            font-size: 0.75rem;
+          .year-icon {
+            width: 24px;
+            height: 24px;
+          }
+
+          .year-text {
+            font-size: 0.9rem;
           }
         }
       `}</style>

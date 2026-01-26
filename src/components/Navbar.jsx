@@ -15,7 +15,7 @@ export default function Navbar() {
 
   const links = [
     { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
+    { id: 'education', label: 'Education' },
     { id: 'projects', label: 'Projects' },
     { id: 'experience', label: 'Experience' },
     { id: 'skills', label: 'Skills' },
