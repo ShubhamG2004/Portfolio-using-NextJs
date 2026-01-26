@@ -147,7 +147,7 @@ export default function EducationJourney() {
       <style jsx>{`
         .edu {
           padding: 3rem 1rem 6rem;
-          background: linear-gradient(135deg, #fff9f5 0%, #fff5f0 100%);
+          background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 100%);
           position: relative;
           overflow: hidden;
           min-height: auto;
