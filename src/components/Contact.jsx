@@ -113,7 +113,7 @@ export default function Contact() {
     <section 
       ref={containerRef}
       id="contact" 
-      className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-orange-100 via-orange-50/20 to-white  border-t-2 border-orange-200"
+      className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-orange-100 via-orange-100 to-white  border-t-2 border-orange-200"
     >
       {/* Floating background elements */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
