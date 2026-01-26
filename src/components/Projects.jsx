@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import projects from '../utils/projects';
-import { ExternalLink, Github, Sparkles, ArrowRight, Code } from 'lucide-react';
+import { ExternalLink, Github, Sparkles, ArrowRight } from 'lucide-react';
 
 // Animation variants
 const containerVariants = {
@@ -47,178 +47,90 @@ const ProjectCard = ({ project, index }) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      {/* Subtle glow effect */}
-      <motion.div
-        className="absolute -inset-0.5 bg-gradient-to-r from-orange-400/20 via-orange-500/10 to-orange-600/10 rounded-2xl blur-lg"
-        animate={{
-          opacity: isHovered ? 0.4 : 0,
-          scale: isHovered ? 1.02 : 1,
-        }}
-        transition={{ duration: 0.3 }}
-      />
-
       {/* Main card */}
       <motion.div 
-        className="relative bg-white/95 backdrop-blur-sm rounded-2xl overflow-hidden border border-orange-100 shadow-lg h-full flex flex-col"
+        className="relative bg-white rounded-2xl overflow-hidden border border-orange-100 shadow-lg h-full flex flex-col hover:shadow-xl transition-all duration-300"
         whileHover={{ 
           y: -8,
-          scale: 1.02,
-          boxShadow: "0 20px 40px -15px rgba(249, 115, 22, 0.15)"
         }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         {/* Project Image */}
         <div className="relative h-56 overflow-hidden">
           {/* Orange overlay */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-orange-600/10 z-10"
-            animate={{ opacity: isHovered ? 0.3 : 0.1 }}
-            transition={{ duration: 0.4 }}
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-orange-600/5 z-10" />
           
           {/* Image */}
-          <motion.img
+          <img
             src={project.image || "https://via.placeholder.com/600x400?text=Project+Image"}
             alt={project.title}
-            className="w-full h-full object-cover"
-            animate={{
-              scale: isHovered ? 1.1 : 1,
-              filter: isHovered ? "brightness(1.05) saturate(1.1)" : "brightness(1)",
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
 
           {/* Action buttons */}
-          <motion.div
-            className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center space-x-3 z-20"
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
+          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center space-x-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             {project.link && (
-              <motion.a
+              <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -2,
-                }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{
-                  y: isHovered ? 0 : 20,
-                  opacity: isHovered ? 1 : 0,
-                }}
-                transition={{ delay: 0.1 }}
+                className="flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95"
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Live Demo
-              </motion.a>
+              </a>
             )}
             {project.github && (
-              <motion.a
+              <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-4 py-2 bg-white/90 text-gray-800 rounded-lg font-medium shadow-md border border-gray-200 hover:shadow-lg transition-all"
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -2,
-                }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{
-                  y: isHovered ? 0 : 20,
-                  opacity: isHovered ? 1 : 0,
-                }}
-                transition={{ delay: 0.15 }}
+                className="flex items-center px-4 py-2 bg-white/90 text-gray-800 rounded-lg font-medium shadow-md border border-gray-200 hover:shadow-lg transition-all hover:scale-105 active:scale-95"
               >
                 <Github className="w-4 h-4 mr-2" />
                 Code
-              </motion.a>
+              </a>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* Project Content */}
         <div className="p-6 space-y-4 flex-1 flex flex-col">
           {/* Title and category */}
           <div className="flex items-start justify-between">
-            <motion.h3
-              className="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300"
-              animate={{
-                color: isHovered ? "#EA580C" : "#111827",
-              }}
-            >
+            <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">
               {project.title}
-            </motion.h3>
+            </h3>
             
             {project.category && (
-              <motion.span
-                className="inline-flex items-center px-2.5 py-1 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 text-xs font-medium rounded-full border border-orange-200"
-                whileHover={{ scale: 1.05 }}
-              >
+              <span className="inline-flex items-center px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-medium rounded-full border border-orange-200">
                 {project.category}
-              </motion.span>
+              </span>
             )}
           </div>
           
           {/* Description */}
-          <motion.p
-            className="text-gray-600 text-sm leading-relaxed flex-1"
-            animate={{
-              color: isHovered ? "#4B5563" : "#6B7280",
-            }}
-          >
+          <p className="text-gray-600 text-sm leading-relaxed flex-1">
             {project.description}
-          </motion.p>
+          </p>
 
           {/* Tech Stack */}
           {project.tech && project.tech.length > 0 && (
-            <motion.div
-              className="flex flex-wrap gap-2 pt-2"
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ delay: index * 0.1 + 0.3 }}
-            >
+            <div className="flex flex-wrap gap-2 pt-2">
               {project.tech.slice(0, 5).map((tech, i) => (
-                <motion.span
+                <span
                   key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.4 + (i * 0.05) }}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -2,
-                    backgroundColor: "rgba(249, 115, 22, 0.1)",
-                    borderColor: "rgba(249, 115, 22, 0.3)",
-                    color: "#EA580C"
-                  }}
-                  className="px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 text-xs rounded-lg font-medium transition-all duration-300"
+                  className="px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 text-xs rounded-lg font-medium hover:bg-orange-50 hover:border-orange-200 hover:text-orange-600 transition-all duration-300"
                 >
                   {tech}
-                </motion.span>
+                </span>
               ))}
-            </motion.div>
+            </div>
           )}
 
-          {/* Bottom divider with subtle animation */}
-          <motion.div
-            className="pt-4 border-t border-gray-100"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <motion.div
-              className="h-0.5 bg-gradient-to-r from-transparent via-orange-200 to-transparent"
-              animate={{
-                scaleX: isHovered ? 1 : 0.5,
-                opacity: isHovered ? 1 : 0.5,
-              }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
+          {/* Bottom divider */}
+          <div className="pt-4 border-t border-gray-100">
+            <div className="h-0.5 bg-gradient-to-r from-transparent via-orange-200 to-transparent group-hover:scale-x-100 scale-x-50 transition-transform duration-300" />
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -239,38 +151,9 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative min-h-screen py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-white via-orange-50/30 to-white border-t-2 border-orange-300"
+      className="relative min-h-screen py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-orange-50 to-white"
     >
-      {/* Subtle animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Floating orange circles */}
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-orange-100/40"
-            style={{
-              left: `${10 + (i * 8)}%`,
-              top: `${15 + (i % 4) * 20}%`,
-              width: `${Math.random() * 200 + 100}px`,
-              height: `${Math.random() * 200 + 100}px`,
-            }}
-            animate={{
-              y: [0, Math.sin(i) * 30, 0],
-              x: [0, Math.cos(i) * 20, 0],
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 8 + (i * 0.5),
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.2
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div 
           style={{ y: textY }} 
@@ -282,20 +165,10 @@ export default function Projects() {
             transition={{ duration: 0.8 }}
             className="relative inline-block mb-6"
           >
-            <motion.span
-              className="inline-flex items-center text-orange-600 font-semibold text-sm tracking-wider uppercase"
-              animate={{
-                textShadow: [
-                  "0 0 0px #EA580C",
-                  "0 0 15px rgba(234, 88, 12, 0.4)",
-                  "0 0 0px #EA580C"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
+            <span className="inline-flex items-center text-orange-600 font-semibold text-sm tracking-wider uppercase">
               <Sparkles className="inline w-4 h-4 mr-2" />
               My Work
-            </motion.span>
+            </span>
           </motion.div>
           
           <motion.h2
@@ -318,7 +191,7 @@ export default function Projects() {
                 className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full"
                 initial={{ scaleX: 0 }}
                 animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: 1, delay: 0.5, type: "spring" }}
+                transition={{ duration: 1, delay: 0.5 }}
               />
             </motion.span>
           </motion.h2>
@@ -332,26 +205,10 @@ export default function Projects() {
             A collection of my recent work, built with modern technologies and attention to detail
           </motion.p>
           
-          {/* Animated divider */}
-          <motion.div
-            className="flex justify-center mt-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <motion.div
-              className="w-32 h-1 rounded-full bg-gradient-to-r from-transparent via-orange-400 to-transparent"
-              animate={{
-                scaleX: [0.8, 1.2, 0.8],
-                opacity: [0.6, 1, 0.6],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
+          {/* Simple divider */}
+          <div className="flex justify-center mt-8">
+            <div className="w-32 h-1 rounded-full bg-gradient-to-r from-transparent via-orange-300 to-transparent" />
+          </div>
         </motion.div>
 
         {/* Project Cards */}
@@ -373,18 +230,10 @@ export default function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <motion.button
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all"
-            whileHover={{ 
-              scale: 1.05,
-              y: -2,
-              boxShadow: "0 10px 25px rgba(249, 115, 22, 0.3)"
-            }}
-            whileTap={{ scale: 0.98 }}
-          >
+          <button className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300">
             View All Projects
             <ArrowRight className="w-4 h-4 ml-2" />
-          </motion.button>
+          </button>
         </motion.div>
       </div>
     </section>
