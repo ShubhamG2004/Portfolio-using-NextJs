@@ -16,11 +16,13 @@ export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isImageHovered, setIsImageHovered] = useState(false);
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
   const trailCount = 6;
   const current = useRef({ x: 0, y: 0 });
   const target = useRef({ x: 0, y: 0 });
+  const fireParticlesRef = useRef([]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -66,6 +68,19 @@ export default function Hero() {
         trail.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
 
+      // Animate fire particles when image is hovered
+      if (isImageHovered) {
+        fireParticlesRef.current.forEach((particle, index) => {
+          if (!particle) return;
+          const progress = (Date.now() % 2000) / 2000;
+          const offset = (index * 0.2) % 1;
+          const y = Math.sin((progress + offset) * Math.PI * 2) * 40 - 20;
+          const opacity = 0.3 + Math.sin((progress + offset) * Math.PI * 2) * 0.3;
+          particle.style.transform = `translateY(${y}px)`;
+          particle.style.opacity = opacity;
+        });
+      }
+
       requestAnimationFrame(animate);
     };
 
@@ -76,7 +91,7 @@ export default function Hero() {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isImageHovered]);
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-gray-50 relative overflow-hidden">
@@ -223,24 +238,54 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Profile Image */}
+        {/* Profile Image with Effects */}
         <div className="md:w-1/3 flex justify-center mt-10 md:mt-0 opacity-0 animate-[fadeInRight_0.8s_ease-out_0.4s_forwards]">
           <div 
             className="relative group transition-transform duration-300 ease-out"
             style={{ transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)` }}
+            onMouseEnter={() => setIsImageHovered(true)}
+            onMouseLeave={() => setIsImageHovered(false)}
           >
+            {/* Energy Circle at Bottom */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-16">
+              {/* Main Circle */}
+              <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 border-4 border-white shadow-xl transition-all duration-500 ${isImageHovered ? 'scale-110 ring-4 ring-orange-300 ring-opacity-50' : ''}`}>
+                {/* Inner Circle Glow */}
+                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-orange-200 to-orange-400 blur-sm opacity-60"></div>
+                
+                {/* Pulsing Effect */}
+                <div className={`absolute inset-0 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 animate-pulse ${isImageHovered ? 'opacity-80' : 'opacity-0'} transition-opacity duration-300`}></div>
+              </div>
+              
+              {/* Fire/Energy Particles - Bottom to Top */}
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div
+                  key={i}
+                  ref={(el) => (fireParticlesRef.current[i] = el)}
+                  className="absolute w-2 h-2 rounded-full bg-gradient-to-b from-orange-400 to-yellow-300 blur-sm"
+                  style={{
+                    left: `${50 + Math.cos((i * 30 * Math.PI) / 180) * 30}%`,
+                    bottom: '0%',
+                    transformOrigin: 'center',
+                    opacity: isImageHovered ? 0.3 : 0,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                />
+              ))}
+            </div>
+
             {/* Background glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-2xl transition-all duration-700 scale-90 group-hover:scale-110"></div>
             
             {/* Animated border effect */}
             <div className="absolute -inset-1 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-[rotate_3s_linear_infinite]"></div>
             
-            {/* Image container */}
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border-4 border-orange-600 shadow-xl group-hover:shadow-2xl group-hover:shadow-orange-300/60 transition-all duration-500 bg-white">
+            {/* Image container with 360 rotation on hover */}
+            <div className={`relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border-4 border-orange-600 shadow-xl transition-all duration-500 bg-white ${isImageHovered ? 'rotate-360 shadow-2xl shadow-orange-300/60' : 'group-hover:shadow-2xl group-hover:shadow-orange-300/60'}`}>
               <img 
                 src="/My_Image.png" 
                 alt="Shubham Gavade"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                className={`w-full h-full object-cover transition-all duration-700 ${isImageHovered ? 'scale-110' : 'group-hover:scale-110'}`} 
               />
               {/* Overlay gradient on hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-orange-600/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -250,6 +295,28 @@ export default function Hero() {
                 <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
               </div>
             </div>
+
+            {/* Fire/Energy Stream Effect (only when hovered) */}
+            {isImageHovered && (
+              <>
+                {/* Left Stream */}
+                <div className="absolute -left-8 top-1/4 w-4 h-32 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-orange-400 to-orange-600 animate-[fireStream_1.5s_ease-in-out_infinite] rounded-full"></div>
+                </div>
+                {/* Right Stream */}
+                <div className="absolute -right-8 top-1/4 w-4 h-32 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-orange-400 to-orange-600 animate-[fireStream_1.5s_ease-in-out_0.3s_infinite] rounded-full"></div>
+                </div>
+                {/* Top Stream */}
+                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-32 h-4 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-400 to-orange-600 animate-[fireStreamHorizontal_1.5s_ease-in-out_0.6s_infinite] rounded-full"></div>
+                </div>
+                {/* Bottom Stream (from circle) */}
+                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-4 h-24 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-400 to-orange-600 animate-[fireStreamUp_2s_ease-in-out_infinite] rounded-full"></div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -356,6 +423,52 @@ export default function Hero() {
           }
           to {
             transform: rotate(360deg);
+          }
+        }
+
+        @keyframes rotate-360 {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .rotate-360 {
+          animation: rotate-360 20s linear infinite;
+        }
+
+        @keyframes fireStream {
+          0%, 100% {
+            transform: translateY(0) scaleY(0.8);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translateY(-20px) scaleY(1.2);
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes fireStreamHorizontal {
+          0%, 100% {
+            transform: translateX(0) scaleX(0.8);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translateX(20px) scaleX(1.2);
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes fireStreamUp {
+          0%, 100% {
+            transform: translateY(0) scaleY(0.8);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translateY(-10px) scaleY(1.2);
+            opacity: 0.8;
           }
         }
       `}</style>
