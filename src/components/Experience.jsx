@@ -4,8 +4,8 @@ import { Calendar, ExternalLink, Briefcase, TrendingUp, ChevronRight } from 'luc
 
 const experiences = [
   {
-    role: "Elliot Systems · Internship",
-    company: "Hybrid",
+    role: "Web Developer | Intern [Hybrid]",
+    company: "Elliot Systems",
     date: "Jan 2025 – Feb 2025 · 2 months",
     link: "https://drive.google.com/file/d/1hushO5wSZm5KbpmdJv6qx0TccyCAX9z2/view",
     companyType: "Tech Startup",
