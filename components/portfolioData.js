@@ -85,9 +85,9 @@ export const projects = [
     live: "https://vitalmind.vercel.app/",
   },
   {
-    title: "Personal Health Diary with AI",
+    title: "Online Quiz System",
     description:
-      "Health journaling app with AI-guided insights, mood tracking, and actionable daily wellness summaries.",
+      "Interactive quiz platform with dynamic question generation, real-time scoring, and comprehensive performance analytics.",
     tech: ["React", "Node.js", "SQLite"],
     image: "/images/Quiz_System.png",
     github: "https://github.com/ShubhamG2004/QuizeApp-using-NextJS-SQLite",
