@@ -17,7 +17,7 @@ export const typingRoles = [
 export const socialLinks = {
   github: "https://github.com/ShubhamG2004",
   linkedin: "https://www.linkedin.com/in/shubham-gavade23/",
-  email: "mailto:gavadeshubham2004@gmail.com",
+  email: "mailto:shubhamga1323@gmail.com",
 };
 
 export const skills = [
@@ -46,7 +46,7 @@ export const projects = [
       "AI-powered detection dashboard with real-time event reporting, camera stream ingestion, and incident analytics.",
     tech: ["AI", "Next.js", "Firebase"],
     image: "/images/agronext.png",
-    github: "https://github.com/ShubhamG2004",
+    github: "https://github.com/ShubhamG2004/CrimeDetectionSystem",
     live: "https://example.com",
   },
   {
@@ -54,18 +54,18 @@ export const projects = [
     description:
       "Computer vision pipeline for fish species detection with inference monitoring and edge-friendly deployment options.",
     tech: ["TensorFlow", "Python", "Computer Vision"],
-    image: "/images/vitalminds.png",
-    github: "https://github.com/ShubhamG2004",
-    live: "https://example.com",
+    image: "/images/Glaucus.png",
+    github: "https://github.com/ShubhamG2004/glaucus",
+    live: "https://glaucus-p6gq.vercel.app/",
   },
   {
-    title: "Wanderland Airbnb Clone",
+    title: "Finance Tracking System",
     description:
-      "Full-stack property listing experience with bookings, maps, user auth, and modern responsive UI interactions.",
+      "Full-stack personal finance tracking application with budgeting, expense categorization, and insightful analytics.",
     tech: ["Next.js", "MongoDB", "Tailwind"],
-    image: "/images/academysync.png",
-    github: "https://github.com/ShubhamG2004",
-    live: "https://example.com",
+    image: "/images/fintrack.png",
+    github: "https://github.com/ShubhamG2004/Fintrack-Personal-Finance-Tracker-NextJS",
+    live: "https://fintrack-weld.vercel.app/",
   },
   {
     title: "Movie Recommendation System",
