@@ -11,14 +11,20 @@ export default function Navbar() {
   useEffect(() => {
     const onScroll = () => {
       const allIds = navLinks.map((item) => item.id);
-      const nextActive = allIds.findLast((id) => {
+      let nextActive = "home";
+
+      for (let index = allIds.length - 1; index >= 0; index -= 1) {
+        const id = allIds[index];
         const el = document.getElementById(id);
         if (!el) {
-          return false;
+          continue;
         }
-        const top = el.getBoundingClientRect().top;
-        return top <= 140;
-      });
+        if (el.getBoundingClientRect().top <= 140) {
+          nextActive = id;
+          break;
+        }
+      }
+
       if (nextActive) {
         setActive(nextActive);
       }
