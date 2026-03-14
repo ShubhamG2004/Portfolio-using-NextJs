@@ -93,6 +93,15 @@ export const projects = [
     github: "https://github.com/ShubhamG2004/QuizeApp-using-NextJS-SQLite",
     live: "https://quize-app-using-next-js-sq-lite.vercel.app/",
   },
+  {
+    title: "AcademiSync",
+    description:
+      "A comprehensive academic management system built with PHP and MySQL, featuring student records, course management, and grade tracking.",
+    tech: ["PHP", "MySQL", "HTML", "CSS", "JavaScript"],
+    image: "/images/academisync.png",
+    github: "https://github.com/ShubhamG2004/AcademiSync-PHP-MySql",
+    link: "https://academisync.netlify.app",
+  }
 ];
 
 export const achievements = [
