@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const username = "ShubhamG2004";
@@ -48,7 +49,14 @@ export default function GithubStats() {
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-slate-200">
               {card.title}
             </h3>
-            <img src={card.src} alt={card.alt} className="h-auto w-full" loading="lazy" />
+            <Image
+              src={card.src}
+              alt={card.alt}
+              width={600}
+              height={320}
+              unoptimized
+              className="h-auto w-full"
+            />
           </motion.article>
         ))}
       </div>
