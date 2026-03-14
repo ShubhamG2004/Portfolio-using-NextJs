@@ -47,14 +47,13 @@ export const projects = [
     tech: ["AI", "Next.js", "Firebase"],
     image: "/images/crime_detection.png",
     github: "https://github.com/ShubhamG2004/CrimeDetectionSystem",
-    live: "working",
   },
   {
     title: "Glaucus Fish Detection AI",
     description:
       "Computer vision pipeline for fish species detection with inference monitoring and edge-friendly deployment options.",
     tech: ["TensorFlow", "Python", "Computer Vision"],
-    image: "/images/Glaucus.png",
+    image: "/images/Glacus.png",
     github: "https://github.com/ShubhamG2004/glaucus",
     live: "https://glaucus-p6gq.vercel.app/",
   },
@@ -84,6 +83,15 @@ export const projects = [
     image: "/images/vitalminds.png",
     github: "https://github.com/ShubhamG2004/vitalmind",
     live: "https://vitalmind.vercel.app/",
+  },
+  {
+    title: "Personal Health Diary with AI",
+    description:
+      "Health journaling app with AI-guided insights, mood tracking, and actionable daily wellness summaries.",
+    tech: ["React", "Node.js", "SQLite"],
+    image: "/images/Quiz_System.png",
+    github: "https://github.com/ShubhamG2004/QuizeApp-using-NextJS-SQLite",
+    live: "https://quize-app-using-next-js-sq-lite.vercel.app/",
   },
 ];
 
