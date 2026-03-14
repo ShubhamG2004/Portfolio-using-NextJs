@@ -45,9 +45,9 @@ export const projects = [
     description:
       "AI-powered detection dashboard with real-time event reporting, camera stream ingestion, and incident analytics.",
     tech: ["AI", "Next.js", "Firebase"],
-    image: "/images/agronext.png",
+    image: "/images/crime_detection.png",
     github: "https://github.com/ShubhamG2004/CrimeDetectionSystem",
-    live: "https://example.com",
+    live: "working",
   },
   {
     title: "Glaucus Fish Detection AI",
@@ -68,13 +68,13 @@ export const projects = [
     live: "https://fintrack-weld.vercel.app/",
   },
   {
-    title: "Movie Recommendation System",
+    title: "AgroNex– Plant Disease Detection System",
     description:
-      "Personalized recommendation engine blending collaborative filtering and content tags with visual similarity graphs.",
+      "AI-powered plant disease detection system with real-time analysis and actionable insights.",
     tech: ["Machine Learning", "Node.js", "PostgreSQL"],
-    image: "/images/fintrack.png",
-    github: "https://github.com/ShubhamG2004",
-    live: "https://example.com",
+    image: "/images/agronext.png",
+    github: "https://github.com/ShubhamG2004/agronex_next",
+    live: "https://agronex-next.vercel.app/",
   },
   {
     title: "Personal Health Diary with AI",
@@ -82,7 +82,7 @@ export const projects = [
       "Health journaling app with AI-guided insights, mood tracking, and actionable daily wellness summaries.",
     tech: ["Next.js", "Gemini API", "MongoDB"],
     image: "/images/vitalminds.png",
-    github: "https://github.com/ShubhamG2004",
+    github: "https://github.com/ShubhamG2004/vitalmind",
     live: "https://vitalmind.vercel.app/",
   },
 ];
