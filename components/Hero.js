@@ -124,7 +124,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-transparent to-amber-300/20" />
             <div className="relative overflow-hidden rounded-[1.6rem] border border-white/15">
               <Image
-                src="/My_Profile.jpeg"
+                src="/My_Image.png"
                 alt="Shubham Suresh Gavade"
                 width={480}
                 height={540}

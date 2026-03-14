@@ -98,9 +98,17 @@ export const projects = [
     description:
       "A comprehensive academic management system built with PHP and MySQL, featuring student records, course management, and grade tracking.",
     tech: ["PHP", "MySQL", "HTML", "CSS", "JavaScript"],
-    image: "/images/academisync.png",
+    image: "/images/academysync.png",
     github: "https://github.com/ShubhamG2004/AcademiSync-PHP-MySql",
     link: "https://academisync.netlify.app",
+  },
+  {
+  title: "MediBook - Hospital Management System",
+    description:
+      "A hospital management system built with Java Swing for the frontend, Java for backend logic, and MySQL for database management. Features include patient records, appointment scheduling, and billing.",
+    tech: ["Java Swing", "Java", "MySQL"],
+    image: "/images/Medibook.png",
+    github: "https://github.com/ShubhamG2004/MediBook-Using-Java-Swing"
   }
 ];
 
