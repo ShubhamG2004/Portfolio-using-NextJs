@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-900: #040914;
+  --bg-800: #07101f;
+  --bg-700: #0c1730;
+  --ink-100: #e6edf8;
+  --ink-300: #95a3bc;
+  --accent-a: #18d4e4;
+  --accent-b: #ffb54a;
+  --card: rgba(12, 23, 48, 0.5);
+  --card-border: rgba(166, 187, 225, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink-100);
+  background:
+    radial-gradient(1200px 700px at 12% -20%, rgba(24, 212, 228, 0.22), transparent 60%),
+    radial-gradient(1000px 700px at 90% 10%, rgba(255, 181, 74, 0.16), transparent 60%),
+    linear-gradient(180deg, var(--bg-800) 0%, var(--bg-900) 100%);
+  font-family: var(--font-display), sans-serif;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8;
+}
+
+.section-title {
+  @apply text-3xl font-semibold text-slate-100 sm:text-4xl;
+}
+
+.section-copy {
+  color: var(--ink-300);
+}
+
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 50px rgba(1, 5, 14, 0.35);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(65px);
+}
+
+.hero-orb-one {
+  width: 320px;
+  height: 320px;
+  left: -120px;
+  top: 10%;
+  background: rgba(24, 212, 228, 0.22);
+  animation: drift 16s ease-in-out infinite;
+}
+
+.hero-orb-two {
+  width: 420px;
+  height: 420px;
+  right: -120px;
+  top: 22%;
+  background: rgba(255, 181, 74, 0.2);
+  animation: drift 14s ease-in-out infinite reverse;
+}
+
+.hero-orb-three {
+  width: 280px;
+  height: 280px;
+  right: 24%;
+  bottom: 4%;
+  background: rgba(24, 212, 228, 0.15);
+  animation: drift 13s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
