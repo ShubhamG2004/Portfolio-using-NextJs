@@ -1,18 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, GraduationCap, Lightbulb } from "lucide-react";
-
-const education = [
-  {
-    title: "B.E. in Electronics & Computer Engineering",
-    institute: "PES Modern College of Engineering",
-  },
-  {
-    title: "Diploma in Information Technology",
-    institute: "Specialized technical foundation in software and systems",
-  },
-];
+import { BookOpen, Lightbulb } from "lucide-react";
 
 export default function About() {
   return (
@@ -32,7 +21,7 @@ export default function About() {
         </p>
       </motion.div>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-3">
+      <div className="mt-10 grid gap-5 md:grid-cols-2">
         <motion.article
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,24 +52,6 @@ export default function About() {
           </p>
         </motion.article>
 
-        <motion.article
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, delay: 0.2 }}
-          className="glass-card rounded-2xl p-6"
-        >
-          <GraduationCap className="mb-4 text-cyan-300" />
-          <h3 className="text-lg font-semibold text-slate-100">Education</h3>
-          <ul className="mt-2 space-y-3 text-sm">
-            {education.map((item) => (
-              <li key={item.title}>
-                <p className="font-medium text-slate-100">{item.title}</p>
-                <p className="section-copy">{item.institute}</p>
-              </li>
-            ))}
-          </ul>
-        </motion.article>
       </div>
     </section>
   );
